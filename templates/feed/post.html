@@ -1,0 +1,261 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block body %}
+<div class="main-content right-chat-active">
+
+    <div class="middle-sidebar-bottom">
+        <div class="middle-sidebar-left">
+            <div class="row">
+                <div class="col-xl-8 col-xxl-9 col-lg-8" >
+                {% for post in posts %}
+                <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3" style="margin-top : 15px ;box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 6px !important; ">
+                    <div class="card-body p-0 d-flex"  >
+
+                        <figure class="avatar me-3">
+                            <img src="{{post.id_Profile.profileimg.url}}" style="width : 50px !important ; height : 50px ;  " alt="image"
+                                class="shadow-sm rounded-circle w45">
+                        </figure>
+
+
+                        <h4 class="fw-700 text-grey-900 font-xssss mt-1">{{post.id_Profile.name}} {{post.id_Profile.surname}} <span
+                                class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{{post.created_at}}</span></h4>
+                        <a href="#" class="ms-auto" id="dropdownMenu7" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><i class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg" aria-labelledby="dropdownMenu7">
+                            <div class="card-body p-0 d-flex">
+                                <i class="feather-bookmark text-grey-500 me-3 font-lg"></i>
+                                <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Save Link <span
+                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Add this to your saved items</span>
+                                </h4>
+                            </div>
+                            <div class="card-body p-0 d-flex mt-2">
+                                <i class="feather-alert-circle text-grey-500 me-3 font-lg"></i>
+                                <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Hide Post <span
+                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                            </div>
+                            <div class="card-body p-0 d-flex mt-2">
+                                <i class="feather-alert-octagon text-grey-500 me-3 font-lg"></i>
+                                <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Hide all from Group <span
+                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                            </div>
+                            <div class="card-body p-0 d-flex mt-2">
+                                <i class="feather-lock text-grey-500 me-3 font-lg"></i>
+                                <h4 class="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4">Unfollow Group <span
+                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 me-lg-5">
+                        <p class="fw-500 text-grey-500 lh-26 font-xssss w-100" style="color : black !important"> {{post.caption}}
+                            <!--a href="#" class="fw-600 text-primary ms-2">See more</a-->
+                        </p>
+                    </div>
+                    <div class="card-body d-block p-0">
+                        <div class="row ps-2 pe-2">
+
+
+
+                            {% if post.fileType == 2 %}
+                            <video controls>
+                                <source src="{{post.image.url}}" type="video/mp4">
+                            </video>
+
+                            {% elif post.fileType == 1 %}
+                            <div style="box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1px !important;"><a href="{{post.image.url}}" data-lightbox="roadtrip"><img src="{{post.image.url}}"
+                                        class="rounded-3 w-100" alt="image"></a></div>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+                    <div class="card-body d-flex p-0 mt-3">
+                        <!--a href="/react/{{post.id}}"
+                            class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-3"><i
+                                class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> <i
+                                class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>{{post.no_of_likes}}
+                            Likes</a-->
+
+                        <form id="react-form" method="POST" action="">
+                            {% csrf_token %}
+                            <button type="submit" style="border : none ; background-color : white ; margin-top : 5px ; "
+                                class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2">
+                                <!--i class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i-->
+                                <i class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>
+                                <span id="total" style="margin-right : 3px ; ">
+                                    {{post.no_of_likes}}
+                                </span>
+                                Like
+                        
+                            </button>
+                            <input type="hidden" id="pub" value="{{post.id}}" />
+                        </form>
+
+
+
+                        {% block js %}
+                        <script type="text/javascript">
+                            $(document).on('submit', '#react-form', function (e) {
+
+                                e.preventDefault();
+                                var pub = document.getElementById('pub').value;
+
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/react/' + pub,
+                                    data: {
+                                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                                    },
+                                    success: function (data) {
+                                        //alert(data)
+                                    }
+                                })
+
+
+                                setTimeout(function () {
+                                     $.ajax({
+                                        type: 'GET',
+                                        url: "/checkReact/" + pub,
+                                        success: function (response) {
+                                            total = parseInt(document.getElementById('total').innerHTML)
+                                            document.getElementById('total').innerHTML = response.check   
+                                            //document.getElementById('total').innerHTML = total + 1
+
+                                        },
+                                        error: function (response) {
+                                            alert('An error occured')
+                                        }
+                                    })
+                                }, 100);
+                                
+
+                                
+                            });
+                        </script>
+                        {% endblock %}
+
+
+
+
+                        <a href="#" class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
+                                class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{post.no_of_comments}} Comments</a>
+                        <a href="#" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
+                                class="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span
+                                class="d-none-xs">Share</span></a>
+                    </div>
+                    <br>
+
+                    <form action="/post_comment/{{post.id}}" method="POST">
+                        {% csrf_token %} 
+                            <div class="row">
+                                <div class="col-9">
+                                    <input name="caption" style="border : none ; background-color : #F0F0F0 ;  border-radius: 10px ; padding : 5px ; width : 100%  ;  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 3px !important;"
+                                                            placeholder="Comment..." />
+
+                                </div>
+                                <div class="col-3">
+                                    <input type="submit" style="border : none ; background-color : #8A1538 ;  border-radius: 10px ; padding : 3px ; width : 100% ; box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 3px !important; color : white " value="Publish">
+                                </div> 
+                            </div>
+                         
+                    </form>
+
+                    <div class="card w-100 border-0 shadow-none right-scroll-bar">
+
+                        {% for comment in comments %}
+                            <div class="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-5">
+                                <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{comment.commenter.profileimg.url}}" alt="image" style="width : 40px !important ; height : 40px ;  "
+                                        class="shadow-sm rounded-circle w35"></figure>
+                                <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                    <a href="/profile/{{comment.commenter.user.username}}" style="decoration : none; color : black ">
+                                        <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{comment.commenter.name}} {{comment.commenter.surname}} <a href="" class="ms-auto"><i
+                                                class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                    </a>
+                                    <p class="fw-500 text-grey-800 lh-20 font-xssss w-100 mt-2 mb-0">{{comment.desc}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <!--div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                    class="shadow-sm rounded-circle w35"></figure>
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Surfiya Zakir <a href="#" class="ms-auto"><i
+                                            class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit. Morbi nulla dolor.</p>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-3.png" alt="image"
+                                    class="shadow-sm rounded-circle w35"></figure>
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Goria Coast <a href="#" class="ms-auto"><i
+                                            class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.</p>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-3.png" alt="image"
+                                    class="shadow-sm rounded-circle w35"></figure>
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Hurin Seary <a href="#" class="ms-auto"><i
+                                            class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.</p>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-3.png" alt="image"
+                                    class="shadow-sm rounded-circle w35"></figure>
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">David Goria <a href="#" class="ms-auto"><i
+                                            class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.</p>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                    class="shadow-sm rounded-circle w35"></figure>
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Seary Victor <a href="#" class="ms-auto"><i
+                                            class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit. Morbi nulla dolor.</p>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                    class="shadow-sm rounded-circle w35"></figure>
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Ana Seary <a href="#" class="ms-auto"><i
+                                            class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit. Morbi nulla dolor.</p>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                    class="shadow-sm rounded-circle w35"></figure>
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Studio Express <a href="#" class="ms-auto"><i
+                                            class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit. Morbi nulla dolor.</p>
+                            </div>
+                        </div-->
+                    </div>
+
+
+
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block head %}
+ 
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>MyChat</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css'%}"> 
+ 
+
+    <style>
+        .buttons {
+            border:none ; 
+            border-radius : 50% ; 
+            background-color : #DADADA ; 
+            padding : 7px ;
+            padding-right : 7px ; 
+            padding-left : 7px ; 
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+            margin : 2px ; 
+            cursor : pointer ; 
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+ 
+<div id="testChat" style="display:none ;  ">test</div>  
+<div class="main-content right-chat-active" style="margin-top : 15px !important;"> 
+        <br>
+        <section id="room-name-wrapper" style="margin : 20px ; ">
+            <H1>Room Name: <span id="room-name"></span>
+                  
+                <button onclick="openInbox()" id="open" style=" margin-top : 10px ; margin-left : 20px ; color : white ; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; background-color : #9932cc ; padding : 5px ; padding-right: 10px ; padding-left : 10px; border : none ; border-radius : 10px ;  ">
+                    Invite Network
+                </button>
+                <br>
+            </H1>
+             
+                <input  type="hidden" id="meetName" value="{{pk}}"  />
+            
+        </section>
+         
+            
+
+                <input type="hidden" value="{{user_profile.username}}" />
+            
+        <center>
+             
+                <img class="buttons" id="mic-btn" height=39px src="{% static '/images/microphone.png' %}"/> 
+             
+             
+                <img class="buttons" id="camera-btn" height=39px  style="background-color : none !important ; " src="{% static '/images/camera.png' %}" id="camera" />
+             
+           
+                <img class="buttons" style="background-color : rgb(255, 80, 80, 1) ; " id="leave-btn" height=39px    src="{% static '/images/quit.png' %}" />
+             
+        </center>    
+        <br>
+
+
+        <div id="video-streams" >
+        <br><br><br>
+             
+        </div>
+        
+        <!--section id="controls-wrapper">
+            <div class="icon-wrapper"> 
+                <img   id="mic-btn" src="static/blank_prof_pic.png"  height=20px />
+            </div>
+
+            <div class="icon-wrapper">
+                <img class="control-icon" id="camera-btn" src="{% static '/images/microphone.png' %}" />
+            </div>
+
+            <div class="icon-wrapper">
+                <img class="control-icon" id="leave-btn" src="/static/images/leave.svg" />
+            </div>
+        </section-->
+
+    <br>
+    <br>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript">
+    function addToMeet(value) { 
+        $.ajax({
+            type: 'POST',
+            url: '/inviteToMeet/' + value,
+            data: {
+                meetName: $('#meetName').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {
+                //alert(data)
+            }
+        });
+        document.getElementById("invitation").innerHTML = value + " has has been successfully invited to your meet."
+    }
+
+</script>
+
+<script>
+    function openInbox() {
+        var chat = document.getElementById("rightChat") ;
+        chat.classList.add('active-sidebar');
+    }
+
+    function closeInbox() {
+        var chat = document.getElementById("rightChat");
+        chat.classList.remove('active-sidebar');
+    }
+</script>
+ 
+<script type="text/javascript">
+    $(document).on('submit', '#post-form', function (e) {
+        e.preventDefault();
+        var receiver = document.getElementById('receiver').value;
+        $.ajax({
+            type: 'POST',
+            url: '/message/' + receiver,
+            data: {
+                desc: $('#desc').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {
+                //alert(data)
+            }
+        });
+        document.getElementById('desc').value = ''
+    });
+
+
+    function test(value) { 
+            $("#display").empty(); 
+            
+                $.ajax({
+                    type: 'GET',
+                    url: "/getFriend/" + value,
+                    success: function (response) {
+                        console.log(response);
+                        $("#display").empty();
+
+                        for (var key in response.friends) {
+                             
+                                var temp = " <div> <p>" + response.friends[key].connecter_id + "</p></div>";
+
+                                $("#display").append(temp);
+
+                        }
+
+
+                    },
+                    error: function (response) {
+                        alert('An error occured')
+                    }
+                });
+            
+         
+    }
+</script>
+
+
+
+<script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/stream.js' %}"></script>
+{% endblock %}

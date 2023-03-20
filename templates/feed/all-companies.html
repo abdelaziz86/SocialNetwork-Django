@@ -1,0 +1,45 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block body %}
+<div class="main-content right-chat-active">
+
+    <div class="middle-sidebar-bottom">
+        <div class="middle-sidebar-left">
+            <div class="row">
+                <div class="col-xl-8 col-xxl-9 col-lg-8">
+                    <h1>Companies</h1>
+                    <form action="" method="POST" class="chat-form">
+                        {% csrf_token %}
+                        <div class="form-group"><input type="text" style="color : black ;  font-weight : 700 ;" name="search" placeholder="Search Company..." /></div>
+                        <button type="submit" value="Search"  class="bg-current"><i class="ti-arrow-right text-white"></i></button>
+                        
+                    </form>
+                    {% if len == 0 %}
+                    <center>
+                        <h3 style="margin-top : 20px ; ">
+                            The searched company might not be available at the moment.
+                            Try to search for a specific company using our WSE 
+                            <a href="/jobFilter/companies">filtering center.</a> 
+                             
+                        </h3>
+                    </center>
+                    {% endif %}
+                    {% for comp in companies %}
+                    <div class="card-body bg-transparent-card d-flex p-3 bg-greylight m-3 rounded-3">
+                        <figure class="avatar me-2 mb-0"><img src="{{comp.profileimg.url}}" alt="image"
+                                class="shadow-sm rounded-circle w45"></figure>
+                        <h4 class="fw-700 text-grey-900 font-xssss mt-2">{{comp.name}}<span
+                                class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{{ comp.no_of_followers }} Followers</span></h4>
+                        <a href="/profile/{{comp.user.username}}"
+                            class="btn-round-sm bg-white text-grey-900 feather-chevron-right font-xss ms-auto mt-2"></a>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

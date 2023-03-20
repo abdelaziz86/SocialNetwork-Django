@@ -1,0 +1,174 @@
+{% extends 'navbar.html' %}
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+
+        setInterval(function () {
+            $.ajax({
+                type: 'GET',
+                url: "/getMessages/{{prof.user.username}}",
+                success: function (response) {
+                    console.log(response);
+                    $("#display").empty();
+
+                    for (var key in response.messages) {
+                        if (response.messages[key].receiver != "{{prof.user.username}}") {
+                            var temp = "<div class='message-item'><div class='message-wrap' > <span class='message-user'> <figure class='avatar'> <img src='{{prof.profileimg.url}}' alt='image'></figure>" + response.messages[key].desc + "</span></div><div><div class='time' style='font-size: 10px !important ;'>" + response.messages[key].created_at + "</div></div></div > ";
+                            
+                            $("#display").append(temp);
+                        } else { 
+                            var temp ="<div class='message-item outgoing-message' style='margin-bottom : -3px ; '><div class='message-user'></div><div class='message-wrap'>"+ response.messages[key].desc +"</div><div><div class='time' style='float : right ; font-size: 10px !important ; ''>"+ response.messages[key].created_at+"<i class='ti-double-check text-info'></i></div> </div></div>" ; 
+                            
+                            $("#display").append(temp);
+                        }
+ 
+                    }
+
+                    $("#display").append("<br>");
+                    $("#display").append("<br>");   
+                    $("#display").append("<br>");   
+                     
+                },
+                error: function (response) {
+                    alert('An error occured')
+                }
+            });
+        }, 2000);
+    })
+</script>
+
+
+
+
+
+{% endblock %}
+{% block body %}
+ <!-- main content -->
+
+
+
+        <div class="main-content right-chat-active" style="height : 610px ; " >
+            <table style="margin-top : 70px ; margin-left : 20px ;">
+                <tr>
+                
+                    <td><img src="{{prof.profileimg.url}}" style="height : 50px ; width : 50px; border-radius : 50%" alt="image"></td>
+                    <td><h5 style="font-weight : 700 ; margin-left : 10px ; ">{{prof.name }} {{prof.surname}}</h5></td>
+                </tr>
+            </table>
+                 
+            <div class="middle-sidebar-bottom" style="margin-top : -20px  !important"  >
+                
+                <div class="middle-sidebar-left pe-0 ps-lg-3 ms-0 me-0" style="max-width: 100%;" >
+                    <div class="row" >
+                           
+
+                        <div class="col-lg-12 position-relative" >
+                            <div class="chat-wrapper pt-0 w-100 position-relative scroll-bar bg-white theme-dark-bg" id="scroll" >
+                                <div class="chat-body p-3 ">
+                                    
+                                    <div class="messages-content pb-5" id="display">
+
+                                        {% for message in messages %}
+                                            {% if message.sender.user.username == prof.user.username %}
+                                                <div class="message-item"> 
+                                                    
+                                                    <div class="message-wrap">
+                                                        <span class="message-user">
+                                                            <figure class="avatar">
+                                                                <img src="{{message.sender.profileimg.url}}" alt="image">
+                                                            </figure>
+                                                            {{message.desc}}
+                                                        </span> 
+                                                    </div>
+                                                    <div> 
+                                                        <div class="time" style="font-size: 10px !important ;">{{message.created_at}}</div>
+                                                    </div>
+                                                </div>
+                                            {%  elif message.sender == user_profile %}
+                                                <div class="message-item outgoing-message" style="margin-bottom : -3px ; ">
+                                                    <div class="message-user"> 
+                                                    </div>
+                                                    <div class="message-wrap">{{message.desc}}</div>
+                                                    <div> 
+                                                        <div class="time" style="float : right ; font-size: 10px !important ; ">{{message.created_at}}<i class="ti-double-check text-info"></i></div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        {% endfor %}
+                                         
+
+                                         <br>
+                                        <br>
+                                        <br> 
+ 
+ 
+                                        <div class="clearfix"></div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="chat-bottom dark-bg p-3 shadow-none theme-dark-bg" style="width: 98%;">
+
+
+                            <form  id="post-form">
+                                {% csrf_token %}
+                                 
+                                <input type="text" name="desc" id="desc" placeholder="Start typing.." style="color : black ;  font-weight : 700 ; width : 30% !important">
+                                 
+                                <input type="hidden" name="sender" value="{{user_profile}}" />
+                                <input type="hidden" name="receiver" id="receiver" value="{{prof.user.username}}" />
+                                <input type="submit"   value="Send" >
+                                <!--a href="" class="position-absolute bottom-15 mb-3 right-15"><i
+                                        class="btn-round-sm bg-primary-gradiant text-white font-sm feather-chevron-right"></i></a-->
+                                
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                 
+            </div>            
+        </div>
+        <!-- main content -->
+
+        <script>
+            function scrollToBottom(id) {
+                    var div = document.getElementById(id);
+                    div.scrollTop = div.scrollHeight - div.clientHeight;
+                }
+            scrollToBottom("scroll") ; 
+        </script>
+
+        
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $(document).on('submit', '#post-form', function (e) {
+        e.preventDefault();
+        var receiver = document.getElementById('receiver').value;
+        $.ajax({
+            type: 'POST',
+            url: '/message/'+receiver,
+            data: {
+                desc: $('#desc').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {
+                //alert(data)
+            }
+        });
+        document.getElementById('desc').value = ''
+    });
+</script>
+{% endblock %}

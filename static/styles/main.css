@@ -1,0 +1,169 @@
+/* ------------------  Global Styling ------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
+
+:root {
+    --shaddow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    background-color: rgba(232, 233, 239, 1);
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* ------------------  Register Page ------------------ */
+
+#form-container {
+    width: 400px;
+    box-shadow: var(--shaddow);
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#logo {
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+}
+
+#welcome-message {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#welcome-message h1 {
+    font-size: 36px;
+}
+
+
+#welcome-message p {
+    font-size: 16px;
+    color: rgb(97, 98, 105);
+    font-weight: 300;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    font-size: 16px;
+    line-height: 1.7em;
+}
+
+.form-field input {
+    width: 100%;
+    border: 2px solid rgba(198, 202, 219, 1);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-field input[type='submit'] {
+    background-color: rgb(75, 93, 172);
+    border: none;
+    color: #fff;
+}
+
+
+@media screen and (max-width:450px) {
+    #form-container {
+        width: 95%;
+
+    }
+
+    #welcome-message h1 {
+        font-size: 24px;
+    }
+
+}
+
+
+/* ----------------- Room Styling ------------------*/
+#room-name-wrapper {
+    text-align: center;
+    font-size: 18px;
+}
+
+#video-streams {
+    display: flex;
+    flex-wrap: wrap;
+    height: 85vh;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.video-container {
+    flex-basis: 500px;
+    flex-grow: 1;
+    max-height: 100%;
+    min-height: 350px;
+    border: 1px solid rgb(75, 93, 172);
+    border-radius: 5px;
+    margin: 2px;
+    background-color: rgba(198, 202, 219, 1);
+    position: relative;
+}
+
+.video-player {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.video-player>* {
+    border-radius: 5px !important;
+}
+
+.username-wrapper {
+    position: absolute !important;
+    top: 10px !important;
+    left: 10px !important;
+    z-index: 2 !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    width: fit-content !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
+    color: #fff !important;
+    font-size: 14px !important; 
+}
+
+@media screen and (max-width:1650px) {
+    .video-container {
+        flex-basis: 300px !important;
+        min-height: 200px !important;
+    }
+}
+
+
+/* ----------------- Room Styling | Controls ------------------*/
+
+#controls-wrapper {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: center!important;
+    column-gap: 1em!important;
+    position: fixed!important;
+    bottom: 20px!important;
+}
+
+.control-icon {
+    height: 20px !important;
+    width: 20px !important;
+    box-shadow: var(--shaddow)!important;
+    background-color: #fff!important;
+    cursor: pointer!important; 
+    padding: 10px!important;
+    border-radius: 5px!important;
+
+}
+
+#leave-btn {
+    background-color: rgb(255, 80, 80, 1)!important;
+}

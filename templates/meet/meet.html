@@ -1,0 +1,74 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block head %}
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>MyChat</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css'%}">
+<!-- <script src='main.js'></script> -->
+{% endblock %}
+
+{% block body %}
+<main>
+
+<section id="form-container">
+
+    <img id="logo" src="{% static 'images/chat-icon.png' %}" />
+
+    <div id="welcome-message">
+        <h1>Welcome to WSE Meet</h1>
+        <p>Start your own meet, invite your network</p>
+    </div>
+
+    <form id="form">
+        <div class="field-wrapper">
+
+            <div class="form-field">
+                <label>Room:</label>
+                <input name="room" placeholder="join or Enter a new room name..." style="text-transform:uppercase" />
+            </div>
+
+             
+                <input type="hidden" name="name" value="{{user_profile.name}} {{user_profile.surname}}" />
+            
+
+            <div class="form-field">
+                <input type="submit" value="Join Stream" />
+            </div>
+        </div>
+    </form>
+</section>
+</main>
+
+<script>
+    let form = document.getElementById('form')
+
+    let handleSubmit = async (e) => {
+        e.preventDefault()
+        let room = e.target.room.value.toUpperCase()
+        let name = e.target.name.value
+
+        let response = await fetch(`/get_token/?channel=${room}`)
+        let data = await response.json()
+
+        let UID = data.uid
+        let token = data.token
+
+        sessionStorage.setItem('UID', UID)
+        sessionStorage.setItem('token', token)
+        sessionStorage.setItem('room', room)
+        sessionStorage.setItem('name', name)
+
+        window.open('/room/'+room , '_self')
+    }
+
+
+
+    form.addEventListener('submit', handleSubmit)
+</script>
+{% endblock %}
+
+{% block js %} 
+{% endblock %}

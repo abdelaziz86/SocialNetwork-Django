@@ -1,0 +1,41 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block body %}
+<!-- main content -->
+<div class="main-content right-chat-active">
+
+     
+            <H3 style="margin : 20px; "><b>INBOX</b></H3>
+           
+                    {% for friend in friends %}
+                    <div class="card d-block w-100 border-0 mb-3 shadow-xss bg-white rounded-3 p-4"
+                        style="padding-left: 120px !important; ">
+                        <img src="{{friend.profileimg.url}}" style="width : 60px !important; height : 60px !important;"
+                            alt="images" class="position-absolute p-2 bg-lightblue2 w65 ms-4 left-0">
+                        
+                        <h4 class="font-xss fw-700 text-grey-900 mb-3 pe-4">
+                            {{friend.name}} {{friend.surname}} <span class="font-xssss fw-500 text-grey-500 ms-4">(3
+                                days ago)</span> </h4>
+                         
+                         
+                         
+                        <h6 class="d-inline-block p-2    fw-500 font-xssss rounded-3 me-2">
+                            test</h6>
+                        <!--h6 class="d-inline-block p-2 text-warning alert-warning fw-600 font-xssss rounded-3 me-2">Andriod</h6>
+                                    <h6 class="d-inline-block p-2 text-secondary alert-secondary fw-600 font-xssss rounded-3 me-2">Developer</h6-->
+                        <a href="/message/{{friend.user.username}}" class="position-absolute bottom-15 mb-3 right-15"><i
+                                class="btn-round-sm bg-primary-gradiant text-white font-sm feather-chevron-right"></i></a>
+
+
+                    </div>
+
+
+                    {% endfor %}
+              
+      
+
+     
+</div>
+<!-- main content -->
+
+{% endblock %}

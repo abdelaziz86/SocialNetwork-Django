@@ -1,0 +1,56 @@
+{% extends 'navbar.html' %}
+{% block body %}
+
+<!-- main content -->
+<div class="main-content bg-lightblue theme-dark-bg right-chat-active">
+
+    <div class="middle-sidebar-bottom">
+        <div class="middle-sidebar-left">
+            <div class="middle-wrap">
+                <div class="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                    <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
+                        <a href="/settings" class="d-inline-block mt-2"><i
+                                class="ti-arrow-left font-sm text-white"></i></a>
+                        <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2">Verification Requests </h4>
+                    </div>
+                    <div class="card-body p-lg-5 p-4 w-100 border-0 ">
+
+ 
+                            <style>
+                                table,
+                                td,
+                                th {
+                                    border: 1px solid;
+                                    padding : 8px ; 
+                                }
+                            </style>
+                            <table border=2px style="width : 100%">
+                                    <tr>
+                                        <td> <b>User</b> </td>
+                                        <td> <b>Submit Date</b></td>
+                                        <td> <b>Type</b></td>
+                                        <td> <b>Details</b> </td>
+                                    </tr>
+                                {% for pre in preaccounts %}
+                                    <tr>
+                                        <td>{{pre.user.username}} </td>
+                                        <td>{{pre.created_at}} </td>
+                                        <td>{{pre.type}} </td>
+                                        <td><a href="/verifyRequest/{{pre.id}}"><i class='far fa-edit' style='font-size:19px'></i></a> </td>
+                                    </tr>
+                                {% endfor %}
+                            </table> 
+
+                            <br> 
+ 
+                    </div>
+                </div>
+                <!-- <div class="card w-100 border-0 p-2"></div> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- main content -->
+
+{% endblock %}

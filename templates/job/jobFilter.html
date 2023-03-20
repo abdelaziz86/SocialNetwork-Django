@@ -1,0 +1,135 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block body %}
+<!-- main content -->
+<div class="main-content bg-lightblue theme-dark-bg right-chat-active">
+
+    <div class="middle-sidebar-bottom" >
+        <div class="middle-sidebar-left" >
+            <div class="middle-wrap" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                <div class="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                    <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
+                        <a href="/search" class="d-inline-block mt-2"><i
+                                class="ti-arrow-left font-sm text-white"></i></a>
+                        <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2">
+                            {% if type == "experts" %}
+                                Filter Experts 
+                            {% elif type == "companies" %}
+                                Filter Companies
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="card-body p-lg-5 p-4 w-100 border-0 ">
+
+                        <h1 class="mont-font fw-600 font-xs">
+                            <i class="fa fa-search" style="font-size:20px ; margin-right : 5px ; "></i>
+                            {% if type == "experts" %}
+                                Let us help you find the most suitable experts for your desired positions.
+                            {% elif type == "companies" %}
+                                Let us help you find the most suitable experts for your desired positions.
+                            {% endif %}
+                        </h1>
+                        <br>
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="row">
+
+
+                                <div class="col-lg-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="mont-font fw-600 font-xsss">Field</label>
+                                        <select class="form-control" name="field"  > 
+                                            <option value="">All</option>
+                                            <option>Agriculture, Food, & Natural Resources</option>
+                                            <option>Business, Management, & Administration</option>
+                                            <option>Communications & Information Systems</option>
+                                            <option>Engineering, Manufacturing, & Technology</option>
+                                            <option>Health Science Technology</option>
+                                            <option>Human Services</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="mont-font fw-600 font-xsss">Sector</label>
+                                        <select class="form-control" name="sector"  > 
+                                            <option value="">All</option>
+                                            <option>Healthcare</option>
+                                            <option>Materials</option>
+                                            <option>Real Estate</option>
+                                            <option>Consumer Staples</option>
+                                            <option>Consumer Discretionary</option>
+                                            <option>Utilities</option>
+                                            <option>Energy</option>
+                                            <option>Industrials</option>
+                                            <option>Consumer Services</option>
+                                            <option>Financials</option>
+                                            <option>Technology</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                {% if type == "experts" %}
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="form-group">
+                                            <label class="mont-font fw-600 font-xsss">Degree</label>
+                                            <select class="form-control" name="degree">
+                                                <option value="">All</option> 
+                                                <option>Associate Degree</option>
+                                                <option>Bachelor's Degree</option>
+                                                <option>Master's Degree</option>
+                                                <option>Doctoral Degree</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% elif type == "companies" %}
+                                    <input type="hidden" value="" name="degree" />
+                                {% endif %}
+                                
+                                <div class="col-lg-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="mont-font fw-600 font-xsss">Country</label>
+                                        <select class="form-control" name="country">
+                                            <option selected>{{user_profile.location.country}}</option>
+                                            {% for country in countries %}
+                                                <option>{{country.country}}</option> 
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+ 
+                            </div>
+
+                            <div>
+                                {% for message in messages %}
+                                <h3 style="color:red">{{message}} </h3>
+                                {% endfor %}
+                            </div>
+                            <br>
+                            <div class="col-lg-12">
+                                
+                                <center><input type="submit" style="border:none; "
+                                        class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block"
+                                        value="Search" /></center>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- <div class="card w-100 border-0 p-2"></div> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- main content -->
+
+
+{% endblock %}

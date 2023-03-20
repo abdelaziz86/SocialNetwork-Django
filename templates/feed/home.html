@@ -1,0 +1,677 @@
+{% extends 'navbar.html' %} 
+{% load static %}
+{% block body %}
+        <!-- main content -->
+        <div class="main-content right-chat-active">
+            
+            <div class="middle-sidebar-bottom">
+                <div class="middle-sidebar-left">
+                    <!-- loader wrapper -->
+                    <div class="preloader-wrap p-3">
+                        <div class="box shimmer">
+                            <div class="lines">
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                            </div>
+                        </div>
+                        <div class="box shimmer mb-3">
+                            <div class="lines">
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                            </div>
+                        </div>
+                        <div class="box shimmer">
+                            <div class="lines">
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                                <div class="line s_shimmer"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- loader wrapper -->
+                    <div class="row feed-body">
+                        <div class="col-xl-8 col-xxl-9 col-lg-8">
+
+
+                            <!--div class="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
+                                <div class="owl-carousel category-card owl-theme overflow-hidden nav-none">
+                                    <div class="item">
+                                        <div data-bs-toggle="modal" data-bs-target="#Modalstory" class="card w125 h200 d-block border-0 shadow-none rounded-xxxl bg-dark overflow-hidden mb-3 mt-3">
+                                            <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                                <a href="#">
+                                                    <span class="btn-round-lg bg-white"><i class="feather-plus font-lg"></i></span>
+                                                    <div class="clearfix"></div>
+                                                    <h4 class="fw-700 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Add Story </h4>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    < div class="item">
+                                        <div data-bs-toggle="modal" data-bs-target="#Modalstory" class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden cursor-pointer mb-3 mt-3" style="background-image: url(/static/images/s-1.jpg);">
+                                            <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                                <a href="#">
+                                                    <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="{% static 'images/user-11.png'%}" alt="image" class="float-right p-0 bg-white rounded-circle w-100 shadow-xss"></figure>
+                                                    <div class="clearfix"></div>
+                                                    <h4 class="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Victor Exrixon </h4>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div >
+                                      
+                                </div>
+                            </div-->
+                           
+
+
+                            <form action="/profile/{{user_profile.user.username}}" method="POST" enctype="multipart/form-data" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 2px !important;">
+                                {% csrf_token %}
+                                <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
+                                    <a href="#" class="ms-auto" id="dropdownMenu8" data-toggle="dropdownMenu8" aria-haspopup="true"
+                                        aria-expanded="true"><i class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
+                            
+                                    <h2 style="margin-bottom:20px; ">Create a new post</h2>
+                                    <input type="hidden" name="home" value="home" />
+                            
+                            
+                                    <div class="card-body d-flex p-0 mt-0">
+                                        <a href="#" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
+                                            <i class="font-md text-success feather-image me-2"></i>
+                                            <span class="d-none-xs">
+                                                Photo/Video
+                                            </span>
+                                        </a>
+                            
+                            
+                            
+                                        <a href="#" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
+                                                class="font-md text-danger feather-video me-2"></i><span class="d-none-xs">Live Video</span></a>
+                                        <a href="#" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
+                                                class="font-md text-warning feather-camera me-2"></i><span
+                                                class="d-none-xs">Feeling/Activity</span></a>
+                            
+                                        <div class="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
+                                            aria-labelledby="dropdownMenu8">
+                                            <div class="card-body p-0 d-flex">
+                                                <i class="feather-bookmark text-grey-500 me-3 font-lg"></i>
+                                                <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Save Link <span
+                                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Add this to your saved
+                                                        items</span></h4>
+                                            </div>
+                                            <div class="card-body p-0 d-flex mt-2">
+                                                <i class="feather-alert-circle text-grey-500 me-3 font-lg"></i>
+                                                <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Hide Post <span
+                                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span>
+                                                </h4>
+                                            </div>
+                                            
+                                            <div class="card-body p-0 d-flex mt-2">
+                                                <i class="feather-lock text-grey-500 me-3 font-lg"></i>
+                                                <h4 class="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4">Unfollow Group <span
+                                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span>
+                                                </h4>
+                                            </div>
+
+                                            <div class="card-body p-0 d-flex mt-2">
+                                                <i class="feather-alert-octagon text-grey-500 me-3 font-lg"></i>
+                                                <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Delete Post <span
+                                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                            
+                                    <div class="card-body p-0 mt-3 position-relative">
+                                        <figure class="avatar position-absolute ms-2 mt-1 top-5"><img src="{% static 'images/user-8.png' %}"
+                                                alt="image" class="shadow-sm rounded-circle w30"></figure>
+                                        <textarea name="message"
+                                            class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
+                                            cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                                    </div>
+                            
+                                    <div>
+                                        <input type="file" name="image" />
+                                    </div>
+                                    <center>
+                                        <div class="card-body p-0" style="float:right !important">
+                            
+                                            <div class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center">
+                                                <i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>
+                                                <input type="submit"
+                                                    class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+                                                    style="padding: 0; border: none; background: none;" value="Create Post" />
+                                            </div>
+                                        </div>
+                                    </center>
+                            
+                            
+                            
+                            
+                                </div>
+                            </form>
+
+
+
+                        {% for post in posts %}
+                            <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 2px !important;">
+                                <div class="card-body p-0 d-flex">
+                                    <figure class="avatar me-3"><img style="width : 50px !important ; height : 50px ;  " src="{{post.id_Profile.profileimg.url}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                                    <h4 class="fw-700 text-grey-900 font-xssss mt-1"><span>
+                                        <a href="/profile/{{post.id_User.username}}" style="color : black ">  
+                                            {% if post.id_Profile.type == 1 %}
+                                                {{post.id_Profile.name}} {{post.id_Profile.surname}}  
+                                            {% else %} 
+                                                {{post.id_Profile.name}}  
+                                            {% endif %} </a>
+                                        {% if post.id_Profile.verified == 0 %}
+                                         
+                                            <!--i class="fa fa-check" style="background-color: red ;   padding : 3px ; border-radius: 50%; color : white "></i-->
+                                            
+                                         
+                                        {% else %}
+                                        
+                                            <!--i class="fa fa-check" style="background-color: green ;   padding : 3px ; border-radius: 50%; color : white "></i-->
+                                             
+                                        
+                                        {% endif %}
+                                        
+
+
+                                        {% if post.id_Profile.type == 1 %}
+                                            <span class="fw-500 font-xssss text-grey-800 mt-1 mb-3 d-block">{{post.id_Profile.domaine}} |
+                                            {{post.id_Profile.sector}}</span>
+                                        {% elif post.id_Profile.type == 2 %}
+                                            <span class="fw-500 font-xssss text-grey-800 mt-1 mb-3 d-block"> {{post.id_Profile.domaine}} |
+                                                {{post.id_Profile.sector}}</span>
+                                        {% endif %}
+                                        <span class="d-block font-xssss fw-500 mt-1 lh-1 text-grey-500" style="margin-top : -10px !important">{{post.created_at}}</span>
+                                        
+                                    
+                                    
+                                    </h4>
+                                    
+                                        <a href="#" class="ms-auto" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg" aria-labelledby="dropdownMenu2">
+                                        <div class="card-body p-0 d-flex">
+                                            <i class="feather-bookmark text-grey-500 me-3 font-lg"></i>
+                                            <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Save Link <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Add this to your saved items</span></h4>
+                                        </div>
+                                        <div class="card-body p-0 d-flex mt-2">
+                                            <i class="feather-alert-circle text-grey-500 me-3 font-lg"></i>
+                                            <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Hide Post <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                                        </div>
+                                        
+                                        <div class="card-body p-0 d-flex mt-2">
+                                            <i class="feather-lock text-grey-500 me-3 font-lg"></i>
+                                            <h4 class="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4">Unfollow Group <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                                        </div>  
+
+                                        {% if post.id_Profile == user_profile  %}
+                                            <a href="delete_post/{{post.id}}">
+                                            <div class="card-body p-0 d-flex mt-2">
+                                                <i class="feather-alert-octagon text-grey-500 me-3 font-lg"></i>
+                                                <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Delete Post <span
+                                                        class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                                            </div>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="card-body p-0 me-lg-5">
+                                    <p class="fw-500 text-grey-800 lh-26 font-xssss w-100">
+                                        {{post.caption}}
+                                    </p>
+                                </div>
+                                <div class="card-body d-block p-0">
+                                    <div class="row ps-2 pe-2">
+                                        {% if post.fileType == 2 %}
+                                        <video controls>
+                                            <source src="{{post.image.url}}" type="video/mp4">
+                                        </video>
+                                        
+                                        {% elif post.fileType == 1 %}
+                                        <div style="box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1px !important;"><a href="{{post.image.url}}" data-lightbox="roadtrip"><img src="{{post.image.url}}" class="rounded-3 w-100"
+                                                    alt="image"></a></div>
+                                        {% endif %}
+                                        <!--div class="col-xs-4 col-sm-4 p-1"><a href="images/t-10.jpg" data-lightbox="roadtrip"><img src="{{post.image.url}}" class="rounded-3 w-100" alt="image"></a></div-->
+                                        <!--div class="col-xs-4 col-sm-4 p-1"><a href="images/t-11.jpg" data-lightbox="roadtrip"><img src="images/t-11.jpg" class="rounded-3 w-100" alt="image"></a></div>
+                                        <div class="col-xs-4 col-sm-4 p-1"><a href="images/t-12.jpg" data-lightbox="roadtrip" class="position-relative d-block"><img src="images/t-12.jpg" class="rounded-3 w-100" alt="image"><span class="img-count font-sm text-white ls-3 fw-600"><b>+2</b></span></a></div-->
+                                    </div>
+                                </div>
+                                <div class="card-body d-flex p-0 mt-3">
+
+                                    <form id="react-form" method="POST" action="">
+                                        {% csrf_token %}
+                                        <button type="submit" style="border : none ; background-color : white ; margin-top : 5px ; " class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2">
+                                            <!--i class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i--> 
+                                            <i class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>
+                                            <span id="total" style="margin-right : 3px ; ">
+                                                {{post.no_of_likes}} 
+                                            </span>
+                                                 Like
+                                             
+                                        </button>
+                                        <input type="hidden" id="pub" value="{{post.id}}" />
+                                    </form>
+                                    <!--a href="/react/{{post.id}}" class="  d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2"><i class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> <i class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>{{post.no_of_likes}} Like</a-->
+                                    
+
+                                    {% block js %}
+                                    <script type="text/javascript">
+                                        $(document).on('submit', '#react-form', function (e) {
+                                            
+                                            e.preventDefault();
+                                            var pub = document.getElementById('pub').value;
+
+                                              
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '/react/' + pub,
+                                                data: { 
+                                                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                                                },
+                                                success: function (data) {
+                                                    //alert(data)
+                                                }
+                                            })  
+
+                                            
+                                            setTimeout(function () {
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: "/checkReact/" + pub,
+                                                    success: function (response) {
+                                                        total = parseInt(document.getElementById('total').innerHTML)
+                                                        document.getElementById('total').innerHTML = response.check
+                                                        //document.getElementById('total').innerHTML = total + 1
+
+                                                    },
+                                                    error: function (response) {
+                                                        alert('An error occured')
+                                                    }
+                                                })
+                                            }, 100); 
+
+
+                                        });
+                                    </script>
+                                    {% endblock %}
+                                    
+                                    
+                                    
+                                    
+                                    <div class="emoji-wrap">
+                                        <ul class="emojis list-inline mb-0">
+                                            <li class="emoji list-inline-item"><i class="em em---1"></i> </li>
+                                            <li class="emoji list-inline-item"><i class="em em-angry"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-anguished"></i> </li>
+                                            <li class="emoji list-inline-item"><i class="em em-astonished"></i> </li>
+                                            <li class="emoji list-inline-item"><i class="em em-blush"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-clap"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-cry"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-full_moon_with_face"></i></li>
+                                        </ul>
+                                    </div>
+                                    <a href="/post/{{post.id}}" class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i><span class="d-none-xss">{{post.no_of_comments}} Comments</span></a>
+                                    <a href="#" id="dropdownMenu21" data-bs-toggle="dropdown" aria-expanded="false" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span class="d-none-xs">Share</span></a>
+                                    <div class="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg" aria-labelledby="dropdownMenu21">
+                                        <h4 class="fw-700 font-xss text-grey-900 d-flex align-items-center">Share <i class="feather-x ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i></h4>
+                                        <div class="card-body p-0 d-flex">
+                                            <ul class="d-flex align-items-center justify-content-between mt-2">
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-facebook"><i class="font-xs ti-facebook text-white"></i></a></li>
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-twiiter"><i class="font-xs ti-twitter-alt text-white"></i></a></li>
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-linkedin"><i class="font-xs ti-linkedin text-white"></i></a></li>
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-instagram"><i class="font-xs ti-instagram text-white"></i></a></li>
+                                                <li><a href="#" class="btn-round-lg bg-pinterest"><i class="font-xs ti-pinterest text-white"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="card-body p-0 d-flex">
+                                            <ul class="d-flex align-items-center justify-content-between mt-2">
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-tumblr"><i class="font-xs ti-tumblr text-white"></i></a></li>
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-youtube"><i class="font-xs ti-youtube text-white"></i></a></li>
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-flicker"><i class="font-xs ti-flickr text-white"></i></a></li>
+                                                <li class="me-1"><a href="#" class="btn-round-lg bg-black"><i class="font-xs ti-vimeo-alt text-white"></i></a></li>
+                                                <li><a href="#" class="btn-round-lg bg-whatsup"><i class="font-xs feather-phone text-white"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h4 class="fw-700 font-xssss mt-4 text-grey-500 d-flex align-items-center mb-3">Copy Link</h4>
+                                        <i class="feather-copy position-absolute right-35 mt-3 font-xs text-grey-500"></i>
+                                        <input type="text" value="https://socia.be/1rGxjoJKVF0" class="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!--div class="right-comment chat-left scroll-bar theme-dark-bg">
+                                <div class="card-body ps-2 pe-4 pb-0 d-flex">
+                                    <figure class="avatar me-3"><img src="images/user-8.png" alt="image" class="shadow-sm rounded-circle w45">
+                                    </figure>
+                                    <h4 class="fw-700 text-grey-900 font-xssss mt-1 text-left">Hurin Seary <span
+                                            class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">2 hour ago</span></h4> <a href="#"
+                                        class="ms-auto"><i class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
+                                </div>
+                                <div class="card-body d-flex ps-2 pe-4 pt-0 mt-0"> <a href="#"
+                                        class="d-flex align-items-center fw-600 text-grey-900 lh-26 font-xssss me-3 text-dark"><i
+                                            class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> <i
+                                            class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>2.8K Like</a> <a
+                                        href="#" class="d-flex align-items-center fw-600 text-grey-900 lh-26 font-xssss text-dark"><i
+                                            class="feather-message-circle text-grey-900 btn-round-sm font-lg text-dark"></i>22 Comment</a></div>
+                                <div class="card w-100 border-0 shadow-none right-scroll-bar">
+                                    <div class="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-5">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-6.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Victor Exrixon <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit. Morbi nulla dolor.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Surfiya Zakir <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit. Morbi nulla dolor.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-3.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Goria Coast <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-3.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Hurin Seary <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-3.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">David Goria <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Seary Victor <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit. Morbi nulla dolor.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Ana Seary <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit. Morbi nulla dolor.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5">
+                                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="images/user-4.png" alt="image"
+                                                class="shadow-sm rounded-circle w35"></figure>
+                                        <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">Studio Express <a href="#" class="ms-auto"><i
+                                                        class="ti-more-alt float-right text-grey-800 font-xsss"></i></a></h4>
+                                            <p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                adipiscing elit. Morbi nulla dolor.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div-->
+                        {% endfor %}   
+                             
+
+                            <!--div class="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
+                                <div class="owl-carousel category-card owl-theme overflow-hidden nav-none">
+                                    <div class="item">
+                                        <div class="card w200 d-block border-0 shadow-xss rounded-xxl overflow-hidden mb-3 me-2 mt-3">
+                                            <div class="card-body position-relative h100 bg-image-cover bg-image-center" style="background-image: url(static/images/u-bg.jpg);"></div>
+                                            <div class="card-body d-block w-100 ps-4 pe-4 pb-4 text-center">
+                                                <figure class="avatar ms-auto me-auto mb-0 mt--6 position-relative w75 z-index-1"><img src="{% static 'images/user-11.png' %}" alt="image" class="float-right p-1 bg-white rounded-circle w-100"></figure>
+                                                <div class="clearfix"></div>
+                                                <h4 class="fw-700 font-xsss mt-2 mb-1">Aliqa Macale </h4>
+                                                <p class="fw-500 font-xsssss text-grey-500 mt-0 mb-2">support@gmail.com</p>
+                                                <span class="live-tag mt-2 mb-0 bg-danger p-2 z-index-1 rounded-3 text-white font-xsssss text-uppersace fw-700 ls-3">LIVE</span>
+                                                <div class="clearfix mb-2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     
+                                </div>
+                            </div-->
+
+
+                             
+
+                            <!--div class="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
+                                <div class="owl-carousel category-card owl-theme overflow-hidden nav-none">
+                                    <div class="item">
+                                        <div class="card w150 d-block border-0 shadow-xss rounded-3 overflow-hidden mb-3 me-2 mt-3">
+                                            <div class="card-body d-block w-100 ps-3 pe-3 pb-4 text-center">
+                                                <figure class="avatar ms-auto me-auto mb-0 position-relative w65 z-index-1"><img src="images/user-11.png" alt="image" class="float-right p-0 bg-white rounded-circle w-100 shadow-xss"></figure>
+                                                <div class="clearfix"></div>
+                                                <h4 class="fw-700 font-xssss mt-3 mb-1">Richard Bowers  </h4>
+                                                <p class="fw-500 font-xsssss text-grey-500 mt-0 mb-3">@macale343</p>
+                                                <a href="#" class="text-center p-2 lh-20 w100 ms-1 ls-3 d-inline-block rounded-xl bg-success font-xsssss fw-700 ls-lg text-white">FOLLOW</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                </div>
+                            </div-->
+
+                            
+
+                             
+
+                            <!--div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-0">
+                                <div class="card-body p-0 d-flex">
+                                    <figure class="avatar me-3"><img src="images/user-8.png" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                                    <h4 class="fw-700 text-grey-900 font-xssss mt-1">Anthony Daugloi <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">2 hour ago</span></h4>
+                                    <a href="#" class="ms-auto"><i class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
+                                </div>
+                                <div class="card-body p-0 me-lg-5">
+                                    <p class="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus <a href="#" class="fw-600 text-primary ms-2">See more</a></p>
+                                </div>
+                                <div class="card-body d-block p-0 mb-3">
+                                    <div class="row ps-2 pe-2">
+                                        <div class="col-sm-12 p-1"><a href="images/t-30.jpg" data-lightbox="roadtr"><img src="images/t-31.jpg" class="rounded-3 w-100" alt="image"></a></div>                                        
+                                    </div>
+                                </div>
+                                <div class="card-body d-flex p-0">
+                                    <a href="#" class="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2"><i class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> <i class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>2.8K Like</a>
+                                    <div class="emoji-wrap">
+                                        <ul class="emojis list-inline mb-0">
+                                            <li class="emoji list-inline-item"><i class="em em---1"></i> </li>
+                                            <li class="emoji list-inline-item"><i class="em em-angry"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-anguished"></i> </li>
+                                            <li class="emoji list-inline-item"><i class="em em-astonished"></i> </li>
+                                            <li class="emoji list-inline-item"><i class="em em-blush"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-clap"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-cry"></i></li>
+                                            <li class="emoji list-inline-item"><i class="em em-full_moon_with_face"></i></li>
+                                        </ul>
+                                    </div>
+                                    <a href="#" class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i><span class="d-none-xss">22 Comment</span></a>
+                                    <a href="#" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span class="d-none-xs">Share</span></a>
+                                </div>
+                            </div-->
+ 
+
+                            <div class="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
+                                <div class="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
+                                    <div class="stage">
+                                        <div class="dot-typing"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>      
+                             
+                        <div class="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0"  >
+                              
+                            <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 2px !important; margin-top : 14px">
+                                <div class="card-body d-flex align-items-center p-4">
+                                    <h4 class="fw-700 mb-0 font-xssss text-grey-900">Connection Request</h4>
+                                    <a href="default-member.html" class="fw-600 ms-auto font-xssss text-primary">See all</a>
+                                </div>
+
+                                {% if connection != "empty" %}
+                                    {% for con in connection %}
+                                        <form action="/connect" method="POST"> 
+                                            {% csrf_token %}
+                                            <div class="card-body d-flex pt-4 ps-4 pe-4 pb-0 border-top-xs bor-0">
+                                                <figure class="avatar me-3"><img style="width : 40px !important ; height : 40px ;  " src="{{con.connecter.profileimg.url}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                                                <h4 class="fw-700 text-grey-900 font-xssss mt-1">
+                                                    <a href="/profile/{{con.connecter.user.username}}" style="decoration : none ; color : black ">
+                                                        {{con.connecter.name}} {{con.connecter.surname}}
+                                                    </a>
+                                                    
+                                                    <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{{con.connecter.metier}} | {{con.connecter.domaine}}</span></h4>
+                                            </div>
+                                            <div class="card-body d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
+                                                <input type="hidden" name="connecter" value="{{con.connecter.user.username}}" />
+                                                <input type="hidden" name="connected" value="{{user_profile.user.username}}" />
+                                                <input type="hidden" name="cas" value="1" />
+
+
+                                                <input type="submit" value="Confirm" name="accept" style="border : none ; " class="p-2 lh-20 w100 bg-primary-gradiant me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"/>
+                                                <input type="submit" value="Delete" name="deleteReq" style="border : none ; "
+                                                    class="p-2 lh-20 w100 bg-grey text-grey-800 text-center font-xssss fw-600 ls-1 rounded-xl" />
+                                                  
+                                            </div>
+                                        </form>
+                                    {% endfor %}
+                                {% else %}
+                                    <center>
+                                        <h4 style="width : 80% ; margin-bottom : 20px ; ">You have no connection requests at the moment.</h4>
+
+                                    </center>
+
+                                {% endif %}
+                                
+                            </div>
+
+
+
+
+                            <div class="card w-100 shadow-xss rounded-xxl border-0 p-0 " style="box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 2px !important;">
+                                <div class="card-body d-flex align-items-center p-4 mb-0">
+                                    <h4 class="fw-700 mb-0 font-xssss text-grey-900">Companies Suggestions</h4>
+                                    <a href="/allCompanies" class="fw-600 ms-auto font-xssss text-primary">See all</a>
+                                </div> 
+                                {% for comp in companies %}
+                                    <div class="card-body bg-transparent-card d-flex p-3 bg-greylight m-3 rounded-3">
+                                        <figure class="avatar me-2 mb-0"><img src="{{comp.profileimg.url}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                                        <h4 class="fw-700 text-grey-900 font-xssss mt-2">{{comp.name}}<span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{{ comp.no_of_followers }} Followers</span></h4>
+                                        <a href="/profile/{{comp.user.username}}" class="btn-round-sm bg-white text-grey-900 feather-chevron-right font-xss ms-auto mt-2"></a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!--div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
+                                <div class="card-body d-flex align-items-center p-4">
+                                    <h4 class="fw-700 mb-0 font-xssss text-grey-900">Suggest Group</h4>
+                                    <a href="default-group.html" class="fw-600 ms-auto font-xssss text-primary">See all</a>
+                                </div>
+                                <div class="card-body d-flex pt-4 ps-4 pe-4 pb-0 overflow-hidden border-top-xs bor-0">
+                                    <img src="images/e-2.jpg" alt="img" class="img-fluid rounded-xxl mb-2">
+                                </div>
+                                <div class="card-body dd-block pt-0 ps-4 pe-4 pb-4">
+                                    <ul class="memberlist mt-1 mb-2 ms-0 d-block">
+                                        <li class="w20"><a href="#"><img src="images/user-6.png" alt="user" class="w35 d-inline-block" style="opacity: 1;"></a></li>
+                                        <li class="w20"><a href="#"><img src="images/user-7.png" alt="user" class="w35 d-inline-block" style="opacity: 1;"></a></li>
+                                        <li class="w20"><a href="#"><img src="images/user-8.png" alt="user" class="w35 d-inline-block" style="opacity: 1;"></a></li>
+                                        <li class="w20"><a href="#"><img src="images/user-3.png" alt="user" class="w35 d-inline-block" style="opacity: 1;"></a></li>
+                                        <li class="last-member"><a href="#" class="bg-greylight fw-600 text-grey-500 font-xssss w35 ls-3 text-center" style="height: 35px; line-height: 35px;">+2</a></li>
+                                        <li class="ps-3 w-auto ms-1"><a href="#" class="fw-600 text-grey-500 font-xssss">Member apply</a></li>
+                                    </ul>
+                                </div>
+
+
+                                 
+                            </div-->
+
+                            <!--div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+                                <div class="card-body d-flex align-items-center p-4">
+                                    <h4 class="fw-700 mb-0 font-xssss text-grey-900">Suggest Pages</h4>
+                                    <a href="default-group.html" class="fw-600 ms-auto font-xssss text-primary">See all</a>
+                                </div>
+                                <div class="card-body d-flex pt-4 ps-4 pe-4 pb-0 overflow-hidden border-top-xs bor-0">
+                                    <img src="{% static 'images/g-2.jpg' %}" alt="img" class="img-fluid rounded-xxl mb-2">
+                                </div>
+                                <div class="card-body d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
+                                    <a href="#" class="p-2 lh-28 w-100 bg-grey text-grey-800 text-center font-xssss fw-700 rounded-xl"><i class="feather-external-link font-xss me-2"></i> Like Page</a>
+                                </div>
+
+                                <div class="card-body d-flex pt-0 ps-4 pe-4 pb-0 overflow-hidden">
+                                    <img src="images/g-3.jpg" alt="img" class="img-fluid rounded-xxl mb-2 bg-lightblue">
+                                </div>
+                                <div class="card-body d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
+                                    <a href="#" class="p-2 lh-28 w-100 bg-grey text-grey-800 text-center font-xssss fw-700 rounded-xl"><i class="feather-external-link font-xss me-2"></i> Like Page</a>
+                                </div>
+
+                                 
+                            </div-->
+
+
+                            <!--div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+                                <div class="card-body d-flex align-items-center  p-4">
+                                    <h4 class="fw-700 mb-0 font-xssss text-grey-900">Event</h4>
+                                    <a href="default-event.html" class="fw-600 ms-auto font-xssss text-primary">See all</a>
+                                </div>
+                                <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
+                                    <div class="bg-success me-2 p-3 rounded-xxl"><h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">FEB</span>22</h4></div>
+                                    <h4 class="fw-700 text-grey-900 font-xssss mt-2">Meeting with clients <span class="d-block font-xsssss fw-500 mt-1 lh-4 text-grey-500">41 madison ave, floor 24 new work, NY 10010</span> </h4>
+                                </div>
+
+                                <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
+                                    <div class="bg-warning me-2 p-3 rounded-xxl"><h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">APR</span>30</h4></div>
+                                    <h4 class="fw-700 text-grey-900 font-xssss mt-2">Developer Programe <span class="d-block font-xsssss fw-500 mt-1 lh-4 text-grey-500">41 madison ave, floor 24 new work, NY 10010</span> </h4>
+                                </div>
+
+                                <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
+                                    <div class="bg-primary me-2 p-3 rounded-xxl"><h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">APR</span>23</h4></div>
+                                    <h4 class="fw-700 text-grey-900 font-xssss mt-2">Aniversary Event <span class="d-block font-xsssss fw-500 mt-1 lh-4 text-grey-500">41 madison ave, floor 24 new work, NY 10010</span> </h4>
+                                </div>
+                                 
+                            </div-->
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>            
+        </div>
+        <!-- main content -->
+
+{% endblock %}

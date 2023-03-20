@@ -1,0 +1,59 @@
+{% extends 'navbar.html' %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- main content -->
+<div class="main-content bg-lightblue theme-dark-bg right-chat-active">
+
+    <div class="middle-sidebar-bottom">
+        <div class="middle-sidebar-left">
+            <div class="middle-wrap">
+                <div class="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                    <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
+                        <a href="/profile/{{user_profile.user.username}}" class="d-inline-block mt-2"><i
+                                class="ti-arrow-left font-sm text-white"></i></a>
+                        <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2">Add Professional Experience </h4>
+                    </div>
+                    <div class="card-body p-lg-5 p-4 w-100 border-0 ">
+
+                        <H3>Professional Experiences 
+                            <a href="/addWorkExp" style="margin-left : 10px ; margin-top : 15px ; color : #8A1538   ">
+                                <i class="fa fa-plus" style="font-size:22px"></i>
+                            </a>
+                        </H3>
+
+                        {% for work in workExp %}
+                        <a href="/editWork/{{work.id}}" style="float : right ; margin-top : 20px ; color : #8A1538   ">
+                            <i class='far fa-edit' style='font-size:19px'></i>
+                        </a>
+                        <a href="/deleteWork/{{work.id}}" style="float : right ; margin-top : 21px ; margin-right : 10px ;   color : #8A1538  ">
+                            <i class="fa fa-trash-o" style="font-size:22px"></i>
+                        </a>
+                        
+                            <div class="card-body border-top-xs d-flex">
+                                
+                                <img src="{{work.companyImage.url}}"
+                                    style=" margin-right : 20px ; width : 40px ;  height  : 40px ; box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 8px !important; ">
+                                </h4>
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0">{{ work.companyName }}
+                                    <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                                        {{ work.start }} - {{work.end}}
+                                    </span>
+                            
+                                    <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-700">
+                                        {{ work.task |linebreaks }}
+                                    </span>
+                                </h4>
+                            
+                            </div>
+                        {% endfor  %}
+                    </div>
+                </div>
+                <!-- <div class="card w-100 border-0 p-2"></div> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- main content -->
+
+{% endblock %}

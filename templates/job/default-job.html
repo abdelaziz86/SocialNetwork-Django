@@ -1,0 +1,206 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block body %}
+        <!-- main content -->
+        <div class="main-content right-chat-active">
+            
+            <div class="middle-sidebar-bottom">
+                <div class="middle-sidebar-left pe-0 ms-0 me-0" style="max-width: 100%;">
+                    <div class="row">
+                        <div class="col-xl-6 chat-left scroll-bar">
+                            <div class="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
+                                
+                                    <div class="card-body d-flex align-items-center p-0">
+                                        {% if type == "experts" %}
+                                            <h2 class="fw-700 mb-0 mt-0 font-md text-grey-900">Hire Experts</h2>
+                                            
+                                            <a href="/jobFilter/experts" style="margin-left : 20px ; float:right ; width : 40%" class="form-control text-grey-500 mb-0 bg-greylight theme-dark-bg border-0"><i class="feather-filter font-xss text-grey-500"></i>Filter</a>
+
+                                        {% elif type == "companies" %}
+                                            <h2 class="fw-700 mb-0 mt-0 font-md text-grey-900">Find Companies</h2>
+                                            
+                                            <a href="/jobFilter/companies" style="margin-left : 20px ; float:right ; width : 40%"
+                                                class="form-control text-grey-500 mb-0 bg-greylight theme-dark-bg border-0"><i
+                                                    class="feather-filter font-xss text-grey-500"></i>Filter</a>
+
+                                        {% endif %}
+                                        <!--div class="search-form-2 ms-auto">
+                                            <i class="ti-search font-xss"></i>
+                                            <input type="text" class="form-control text-grey-500 mb-0 bg-greylight theme-dark-bg border-0" placeholder="Search here.">
+                                        </div-->
+                                    </div>
+                                
+                                     
+                            </div>
+                            
+                            <script>
+                                var airports = []
+                            </script>
+
+                            {% for worker in workers %}
+                                {% if worker.location.country == country  %}
+                                <div class="card d-block w-100 border-0 mb-3 shadow-xss bg-white rounded-3 p-4" style="padding-left: 120px !important;">
+                                    <img src="{{worker.profileimg.url}}" style="width : 60px !important; height : 60px !important;" alt="images" class="position-absolute p-2 bg-lightblue2 w65 ms-4 left-0">
+                                    <i class="feather-bookmark font-md text-grey-500 position-absolute right-0 me-3"></i>
+                                    <h4 class="font-xss fw-700 text-grey-900 mb-3 pe-4">
+                                        {{worker.name}} {{worker.surname}} <span class="font-xssss fw-500 text-grey-500 ms-4">(
+                                            {% if worker.type == 1 %}
+                                                Expert
+                                            {% elif worker.type == 2 %}
+                                                Company
+                                            {% endif %}
+                                            )
+                                        </span> </h4>
+                                    <h5 class="font-xssss mb-2 text-grey-500 fw-600"><span class="text-grey-900 font-xssss">Location : </span>{{worker.location.region}}, {{worker.location.country}}</h5>
+                                    <h5 class="font-xssss mb-2 text-grey-500 fw-600"><span class="text-grey-900 font-xssss">Employment : </span>{{ worker.metier }}</h5>
+                                    <h5 class="font-xssss text-grey-500 fw-600 mb-3"><span class="text-grey-900 font-xssss">Sector : </span> {{worker.sector}} </h5>
+                                    {% if worker.type == 1 %}
+                                        <h5 class="font-xssss text-grey-500 fw-600 mb-3"><span class="text-grey-900 font-xssss">Degree : </span>
+                                        {{worker.degree}} </h5> 
+                                    {% endif %}
+                                    <h6 class="d-inline-block p-2 text-success alert-success fw-600 font-xssss rounded-3 me-2">{{worker.domaine}}</h6>
+                                    <!--h6 class="d-inline-block p-2 text-warning alert-warning fw-600 font-xssss rounded-3 me-2">Andriod</h6>
+                                    <h6 class="d-inline-block p-2 text-secondary alert-secondary fw-600 font-xssss rounded-3 me-2">Developer</h6-->
+                                    <a href="/profile/{{worker.user.username}}" class="position-absolute bottom-15 mb-3 right-15"><i class="btn-round-sm bg-primary-gradiant text-white font-sm feather-chevron-right"></i></a>
+                                    
+
+                                </div>
+                                {% endif %}
+
+                            {% endfor %}
+                        </div>   
+                        <div class="col-xl-6 ps-0 d-none d-xl-block">
+                            <div class="card w-100 border-0 shadow-none rounded-3 border-0 mb-4 overflow-hidden ">
+                                <div id="map" class="rounded-3" style="height: 86vh;"></div>
+                                <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCOdKtT5fapH3_OfhV3HFeZjqFs4OfNIew&amp;callback=mapinitialize" type="text/javascript"></script>
+                                <script type="text/javascript">
+
+                                    
+
+                                
+                                var icons = { parking: { icon: '/static/images/map-marker.png' } };
+
+
+                                // REPLACE WITH DATA FROM API
+                                //TITLE | POSITION - LAT , LNG | ICON | TITLE | CONTENT
+                                var airports = [ ];
+                                var t = 0
+                            </script> 
+                                <H2 id="test"></H2>
+
+                                
+                                    <div style="  display : none ;" id="latitude">
+                                        {% for worker in workers %}
+                                            {% if worker.location.country == country %}
+                                                {{worker.location.latitude}} ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    <div style=" display : none ; " id="longitude">
+                                        {% for worker in workers %}
+                                            {% if worker.location.country == country %}
+                                                {{worker.location.longitude}} ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div style="display : none ;  " id="name">
+                                        {% for worker in workers %}
+                                            {% if worker.location.country == country %}
+                                                {{worker.name}} , 
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div style="display : none ;  " id="username">
+                                        {% for worker in workers %}
+                                            {% if worker.location.country == country %}
+                                                {{worker.user.username}} ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div style="display : none ;  " id="domaine">
+                                        {% for worker in workers %}
+                                            {% if worker.location.country == country %}
+                                                {{ worker.domaine }} !
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <script>
+                                        latitude = document.getElementById("latitude").innerHTML  ; 
+                                        longitude = document.getElementById("longitude").innerHTML  ; 
+                                        name = document.getElementById("name").innerHTML; 
+                                        username = document.getElementById("username").innerHTML; 
+                                        domaine = document.getElementById("domaine").innerHTML; 
+
+                                        var lat = latitude.split(',');
+                                        var long = longitude.split(',');
+                                        var nam = name.split(',');
+                                        var username = username.split(',');
+                                        var doma = domaine.split('!');
+
+ 
+                                        for (let i = 0; i < 3; i++) {
+                                            airports.push(
+                                                    {
+                                                        position: {
+                                                            lat: parseFloat(lat[i]),
+                                                            lng: parseFloat(long[i])
+                                                        },
+                                                        icon: 'parking',
+                                                        content: '<a href="/profile/'+username[i].trim()+'"><div id="content" style="width : 120px ; " ><div id="siteNotice"></div><h5 id="firstHeading" class="firstHeading"><b>'+nam[i] +'</b> <p>'+doma[i]+'</p> </h5></div></a>'
+                                                    }
+                                                ) ;  
+                                         
+                                        }
+                                    </script>  
+                            <script>
+                                
+
+     
+                                function initMap() {
+                                    
+                                    var uk = { 
+                                        lat: 53.990221, 
+                                        lng: -3.911132 
+                                    };
+                                    
+                                    var map = new google.maps.Map( document.getElementById('map'), {
+                                      zoom: 7,
+                                      center: uk, 
+                                      disableDefaultUI: true,
+                                      styles: [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"},{"color":"#cee9de"},{"saturation":"2"},{"weight":"0.80"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#f5d6d6"}]},{"featureType":"road.highway","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"hue":"#ff0000"},{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway.controlled_access","elementType":"labels.icon","stylers":[{"visibility":"on"},{"hue":"#0064ff"},{"gamma":"1.44"},{"lightness":"-3"},{"weight":"1.69"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"simplified"},{"weight":"0.31"},{"gamma":"1.43"},{"lightness":"-5"},{"saturation":"-22"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#ff0000"}]},{"featureType":"transit.station.airport","elementType":"all","stylers":[{"visibility":"simplified"},{"hue":"#ff0045"}]},{"featureType":"transit.station.bus","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#00d1ff"}]},{"featureType":"transit.station.bus","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"transit.station.rail","elementType":"all","stylers":[{"visibility":"simplified"},{"hue":"#00cbff"}]},{"featureType":"transit.station.rail","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"weight":"1.61"},{"color":"#cde2e5"},{"visibility":"on"}]}]
+                                    });
+                                          
+                                    var InfoWindows = new google.maps.InfoWindow({});
+                                    
+                                    airports.forEach(function(airport) {    
+                                        var marker = new google.maps.Marker({
+                                          position: { lat: airport.position.lat, lng: airport.position.lng },
+                                          map: map,
+                                          icon: icons[airport.icon].icon,
+                                          title: airport.title
+                                        });
+                                        marker.addListener('mouseover', function() {
+                                          InfoWindows.open(map, this);
+                                          InfoWindows.setContent(airport.content);
+                                        });
+                                    });
+                                }
+
+                                initMap();
+
+
+
+
+                                </script>
+                            </div>
+                        </div>               
+
+                    </div>
+                </div>
+                 
+            </div>            
+        </div>
+        <!-- main content -->
+
+{% endblock %}
